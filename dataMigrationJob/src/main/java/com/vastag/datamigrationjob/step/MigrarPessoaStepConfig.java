@@ -6,6 +6,7 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
+import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.batch.item.support.ClassifierCompositeItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -21,7 +22,7 @@ public class MigrarPessoaStepConfig {
     @Bean
     public Step migrarPessoaStep(@Qualifier("arquivoPessoaReader") ItemReader<Pessoa> arquivoPessoaReader
             , ClassifierCompositeItemWriter<Pessoa> pessoaClassifierWriter
-            , FlatFileItemReader<Pessoa> arquivoPessoasInvalidasWriter) {
+            , FlatFileItemWriter<Pessoa> arquivoPessoasInvalidasWriter) {
 
         return stepBuilderFactory
                 .get("migrarPessoaStep")
