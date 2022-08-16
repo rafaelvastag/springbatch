@@ -7,6 +7,7 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
+import org.springframework.batch.item.file.MultiResourceItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -19,11 +20,11 @@ public class LeituraArquivoMultiFormatStep {
     private StepBuilderFactory stepBuilderFactory;
 
     @Bean("leituraArquivoMultiFormat")
-    public Step leituraArquivoMultiFormatStep(@Qualifier("arquivoMultiFormatReader") FlatFileItemReader reader, @Qualifier("arquivoWriter") ItemWriter<Object> writer) {
+    public Step leituraArquivoMultiFormatStep(@Qualifier("multiResource") MultiResourceItemReader<Cliente> reader, @Qualifier("arquivoWriter") ItemWriter<Object> writer) {
         return stepBuilderFactory
                 .get("leituraArquivoMultiplosFormatosStep")
                 .chunk(1)
-                .reader(new ArquivoClienteTransacaoReader(reader))
+                .reader(reader)
                 .writer(writer)
                 .build();
     }
